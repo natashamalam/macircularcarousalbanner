@@ -19,7 +19,6 @@ class MACarousalBannerView: UIView {
     var datasource: MAChain<UIImage> {
         didSet {
             imageCollectionView.reloadData()
-            currentVisibleIndexpath = IndexPath(row: 0, section: 0)
         }
     }
     
@@ -39,6 +38,7 @@ class MACarousalBannerView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isScrollEnabled = true
+        collectionView.isPagingEnabled = true
         return collectionView
     }()
 
@@ -56,42 +56,38 @@ class MACarousalBannerView: UIView {
         return button
     }()
     
+    // MARK: - Initializers
     required init?(coder: NSCoder) {
-        self.datasource = MAChain<UIImage>()
-        super.init(coder: coder)
-        addSubViews()
+        fatalError("init(coder:) has not been implemented")
     }
     
     init(images: [String]) {
         let items = images.map { return UIImage(named: $0)! }
         self.datasource = MAChain(items: items)
+        self.currentVisibleIndexpath = IndexPath(row: 0, section: 0)
         super.init(frame: .zero)
-        addSubViews()
+        configureSubviews()
     }
     
+    // MARK: - customizing sub views
     func addSubViews() {
         wrapperView.addSubview(leftArrowButton)
         wrapperView.addSubview(rightArrowButton)
         wrapperView.addSubview(imageCollectionView)
         self.addSubview(wrapperView)
-        configureSubviews()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        addLayOutConstraints()
+        addLayoutConstraints()
     }
     
     func configureSubviews() {
+        addSubViews()
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
-        imageCollectionView.isPagingEnabled = true
         imageCollectionView.register(MACarousalViewCell.self, forCellWithReuseIdentifier: "CarousalViewCell")
         leftArrowButton.addTarget(self, action: #selector(moveBackwards), for: .touchUpInside)
         rightArrowButton.addTarget(self, action: #selector(moveForwards), for: .touchUpInside)
     }
     
-    func addLayOutConstraints() {
+    func addLayoutConstraints() {
         let constraints = [
             wrapperView.topAnchor.constraint(equalTo: self.topAnchor),
             wrapperView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
