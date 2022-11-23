@@ -22,21 +22,24 @@ class MACarousalViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(imageView)
-        addLayoutConstraints()
-    }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        addSubview(imageView)
-        addLayoutConstraints()
+        customize()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        customize()
     }
     
     convenience init(_ image: UIImage) {
         self.init(frame: .zero)
         imageView.image = image
+    }
+    
+    private func customize() {
+        addSubview(imageView)
+        addLayoutConstraints()
     }
     
     func addLayoutConstraints() {

@@ -56,15 +56,16 @@ class MACarousalBannerView: UIView {
         return button
     }()
     
-    override init(frame: CGRect) {
-        self.datasource = MAChain<UIImage>()
-        super.init(frame: frame)
-        addSubViews()
-    }
-    
     required init?(coder: NSCoder) {
         self.datasource = MAChain<UIImage>()
         super.init(coder: coder)
+        addSubViews()
+    }
+    
+    init(images: [String]) {
+        let items = images.map { return UIImage(named: $0)! }
+        self.datasource = MAChain(items: items)
+        super.init(frame: .zero)
         addSubViews()
     }
     

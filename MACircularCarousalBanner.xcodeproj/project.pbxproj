@@ -60,11 +60,11 @@
 		0F32FF66292E1C16000B2E24 /* MACircularCarousalBanner */ = {
 			isa = PBXGroup;
 			children = (
-				0F32FF86292E2F20000B2E24 /* View */,
-				0F32FF83292E2EFA000B2E24 /* View-model */,
 				0F32FF7B292E1C32000B2E24 /* App */,
+				0F32FF83292E2EFA000B2E24 /* View-model */,
 				0F32FF80292E243F000B2E24 /* Model */,
 				0F32FF7D292E1C4F000B2E24 /* Controller */,
+				0F32FF86292E2F20000B2E24 /* View */,
 				0F32FF7C292E1C47000B2E24 /* Resources */,
 				0F32FF75292E1C17000B2E24 /* Info.plist */,
 			);

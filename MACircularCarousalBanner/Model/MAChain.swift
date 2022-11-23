@@ -28,6 +28,13 @@ class MAChain<Item> {
         self.head = nil
     }
     
+    init(items: [Item]) {
+        self.head = nil
+        for item in items {
+            self.add(item: item)
+        }
+    }
+    
     func count() -> Int {
         if head == nil {
             return 0
