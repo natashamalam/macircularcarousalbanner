@@ -18,7 +18,7 @@ class DemoViewController: UIViewController {
     }
 
     func initializeCarousalBanner() {
-        carousalBanner = MACarousalBannerView(images: ["img_1.jpg", "img_2.jpg", "img_3.jpg", "img_4.jpg", "img_5.jpg"])
+        carousalBanner = MACarousalBannerView(images: ["img_1", "img_2", "img_3", "img_4", "img_5"])
         carousalBanner.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(carousalBanner)
         addlayoutConstraints()

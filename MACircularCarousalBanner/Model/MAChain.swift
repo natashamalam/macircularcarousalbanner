@@ -28,8 +28,8 @@ class MAChain<Item> {
         self.head = nil
     }
     
-    init(items: [Item]) {
-        self.head = nil
+    convenience init(items: [Item]) {
+        self.init()
         for item in items {
             self.add(item: item)
         }
@@ -80,11 +80,9 @@ class MAChain<Item> {
     func removeFirst() {
         if head == nil {
             return
-        }
-        else if head?.next == nil {
+        } else if head?.next == nil {
             head = nil
-        }
-        else {
+        } else {
             let secondToHead = head?.next
             secondToHead?.prev = nil
             head = secondToHead
@@ -92,7 +90,7 @@ class MAChain<Item> {
     }
     
     func itemAt(_ index: Int) -> Item? {
-        if head == nil || index >= self.count() {
+        if head == nil || index >= count() {
             return nil
         }
         var current = head
