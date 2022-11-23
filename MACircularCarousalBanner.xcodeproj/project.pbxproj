@@ -15,6 +15,7 @@
 		0F32FF85292E2F0D000B2E24 /* MACarousalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F32FF84292E2F0D000B2E24 /* MACarousalViewModel.swift */; };
 		0F32FF89292E2F30000B2E24 /* MACarousalBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F32FF87292E2F30000B2E24 /* MACarousalBannerView.swift */; };
 		0F32FF8A292E2F30000B2E24 /* MACarousalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F32FF88292E2F30000B2E24 /* MACarousalViewCell.swift */; };
+		0F32FF8C292E4144000B2E24 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F32FF8B292E4144000B2E24 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		0F32FF84292E2F0D000B2E24 /* MACarousalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MACarousalViewModel.swift; sourceTree = "<group>"; };
 		0F32FF87292E2F30000B2E24 /* MACarousalBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MACarousalBannerView.swift; sourceTree = "<group>"; };
 		0F32FF88292E2F30000B2E24 /* MACarousalViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MACarousalViewCell.swift; sourceTree = "<group>"; };
+		0F32FF8B292E4144000B2E24 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +63,8 @@
 			isa = PBXGroup;
 			children = (
 				0F32FF7B292E1C32000B2E24 /* App */,
-				0F32FF83292E2EFA000B2E24 /* View-model */,
 				0F32FF80292E243F000B2E24 /* Model */,
+				0F32FF83292E2EFA000B2E24 /* View-model */,
 				0F32FF7D292E1C4F000B2E24 /* Controller */,
 				0F32FF86292E2F20000B2E24 /* View */,
 				0F32FF7C292E1C47000B2E24 /* Resources */,
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				0F32FF81292E2454000B2E24 /* MAChain.swift */,
+				0F32FF8B292E4144000B2E24 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				0F32FF85292E2F0D000B2E24 /* MACarousalViewModel.swift in Sources */,
 				0F32FF68292E1C16000B2E24 /* AppDelegate.swift in Sources */,
 				0F32FF89292E2F30000B2E24 /* MACarousalBannerView.swift in Sources */,
+				0F32FF8C292E4144000B2E24 /* Constants.swift in Sources */,
 				0F32FF7F292E1CC9000B2E24 /* DemoViewController.swift in Sources */,
 				0F32FF82292E2454000B2E24 /* MAChain.swift in Sources */,
 			);

@@ -26,10 +26,10 @@ class DemoViewController: UIViewController {
     
     func addlayoutConstraints() {
         let constraints = [
-            carousalBanner.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            carousalBanner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             carousalBanner.heightAnchor.constraint(equalToConstant: 200),
-            carousalBanner.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            carousalBanner.rightAnchor.constraint(equalTo: self.view.rightAnchor)
+            carousalBanner.leftAnchor.constraint(equalTo: view.leftAnchor),
+            carousalBanner.rightAnchor.constraint(equalTo: view.rightAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }
