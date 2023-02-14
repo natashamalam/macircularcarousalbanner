@@ -89,6 +89,24 @@ class MAChain<Item> {
         }
     }
     
+    func first() -> Item? {
+        guard let head = head else {
+            return nil
+        }
+        return head.item
+    }
+    
+    func last() -> Item? {
+        if head == nil {
+            return nil
+        }
+        var current = head
+        while current?.next != nil {
+            current = current?.next
+        }
+        return current?.item
+    }
+    
     func itemAt(_ index: Int) -> Item? {
         if head == nil || index >= count() {
             return nil
