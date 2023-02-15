@@ -10,16 +10,22 @@ import UIKit
 class DemoViewController: UIViewController {
     
     var carousalBanner: MACarousalBannerView!
+    
+    let imageNames: [String] = ["img_1", "img_2", "img_3", "img_4", "img_5"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        initializeCarousalBanner()
+        setupCarousalBanner()
     }
-
-    func initializeCarousalBanner() {
-        carousalBanner = MACarousalBannerView(images: ["img_1", "img_2", "img_3", "img_4", "img_5"])
-        carousalBanner.translatesAutoresizingMaskIntoConstraints = false
+    
+    private func setupCarousalBanner() {
+        let bannerViewModel = MACarousalBannerViewModel(imageNames: imageNames)
+        carousalBanner = MACarousalBannerView(viewModel: bannerViewModel)
+        configureCarousalView()
+    }
+    
+    private func configureCarousalView() {
         view.addSubview(carousalBanner)
         addlayoutConstraints()
     }

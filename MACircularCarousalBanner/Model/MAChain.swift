@@ -33,6 +33,14 @@ class MAChain<Item> {
         for item in items {
             self.add(item: item)
         }
+        makeCircular()
+    }
+    
+    func makeCircular() {
+        if count() > 0 {
+            let tail = last()
+            head?.prev = tail?.next
+        }
     }
     
     func count() -> Int {
@@ -89,14 +97,14 @@ class MAChain<Item> {
         }
     }
     
-    func first() -> Item? {
+    func first() -> MAChainNode<Item>? {
         guard let head = head else {
             return nil
         }
-        return head.item
+        return head
     }
     
-    func last() -> Item? {
+    func last() -> MAChainNode<Item>? {
         if head == nil {
             return nil
         }
@@ -104,23 +112,29 @@ class MAChain<Item> {
         while current?.next != nil {
             current = current?.next
         }
-        return current?.item
+        return current
     }
     
     func itemAt(_ index: Int) -> Item? {
-        if head == nil || index >= count() {
-            return nil
+        if index == 0 {
+            return head?.item
         }
+
+        let targetIndex = targetIndex(index)
         var current = head
-        var pos = 1
-        while current?.next != nil && pos <= index {
+        var pos = 0
+        while current?.next != nil && pos <= targetIndex {
             print("\(String(describing: current?.item))")
             current = current?.next
             pos += 1
         }
+        print("\(String(describing: current?.item))")
         return current?.item
     }
     
+    func targetIndex(_ index: Int) -> Int {
+        return (count() % (index + 1)) - 1
+    }
     func printForwards() {
         var current = head
         while current?.next != nil {

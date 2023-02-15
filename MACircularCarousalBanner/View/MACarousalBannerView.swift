@@ -15,18 +15,10 @@ protocol MACarousalBannerViewDelegate: AnyObject {
 class MACarousalBannerView: UIView {
     
     weak var delegate: MACarousalBannerViewDelegate?
-    
-    var datasource: MAChain<UIImage> {
-        didSet {
-            imageCollectionView.reloadData()
-        }
-    }
-    
-    var currentVisibleIndexpath: IndexPath?
+    private let viewModel: MACarousalBannerViewModel
     
     let wrapperView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -61,11 +53,13 @@ class MACarousalBannerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(images: [String]) {
-        let items = images.map { return UIImage(named: $0)! }
-        self.datasource = MAChain(items: items)
-        self.currentVisibleIndexpath = IndexPath(row: 0, section: 0)
+    init(viewModel: MACarousalBannerViewModel) {
+        self.viewModel = viewModel
         super.init(frame: .zero)
+        backgroundColor = .lightText
+        translatesAutoresizingMaskIntoConstraints = false
+        addSubViews()
+        addLayoutConstraints()
         configureSubviews()
     }
     
@@ -74,15 +68,15 @@ class MACarousalBannerView: UIView {
         wrapperView.addSubview(leftArrowButton)
         wrapperView.addSubview(rightArrowButton)
         wrapperView.addSubview(imageCollectionView)
-        self.addSubview(wrapperView)
-        addLayoutConstraints()
+        addSubview(wrapperView)
     }
     
     func configureSubviews() {
-        addSubViews()
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
+        
         imageCollectionView.register(MACarousalViewCell.self, forCellWithReuseIdentifier: "CarousalViewCell")
+        
         leftArrowButton.addTarget(self, action: #selector(moveBackwards), for: .touchUpInside)
         rightArrowButton.addTarget(self, action: #selector(moveForwards), for: .touchUpInside)
     }
@@ -114,21 +108,25 @@ class MACarousalBannerView: UIView {
     }
     
     @objc func moveForwards() {
-        guard let currentIndex = currentVisibleIndexpath?.row else {return}
-        currentVisibleIndexpath = IndexPath(row: (currentIndex + 1), section: 0)
+        guard let currentIndex = viewModel.currentVisibleIndexpath?.row else {return}
         
-        if let targetIndexpath = currentVisibleIndexpath {
-            imageCollectionView.scrollToItem(at: targetIndexpath, at: .centeredHorizontally, animated: true)
-            delegate?.moveForwards()
+        if let nextIndexpath = viewModel.updatedIndexPath(currentRow: currentIndex + 1) {
+            imageCollectionView.scrollToItem(at: nextIndexpath,
+                                             at: .centeredHorizontally,
+                                             animated: true)
+            viewModel.updateCurrentIndexPath(with: nextIndexpath)
+            delegate?.moveBackwards()
         }
     }
     
     @objc func moveBackwards() {
-        guard let currentIndex = currentVisibleIndexpath?.row else {return}
-        currentVisibleIndexpath = IndexPath(row: (currentIndex - 1), section: 0)
+        guard let currentIndex = viewModel.currentVisibleIndexpath?.row else {return}
         
-        if let targetIndexpath = currentVisibleIndexpath {
-            imageCollectionView.scrollToItem(at: targetIndexpath, at: .centeredHorizontally, animated: true)
+        if let prevIndexpath = viewModel.updatedIndexPath(currentRow: currentIndex - 1) {
+            imageCollectionView.scrollToItem(at: prevIndexpath,
+                                             at: .centeredHorizontally,
+                                             animated: true)
+            viewModel.updateCurrentIndexPath(with: prevIndexpath)
             delegate?.moveBackwards()
         }
     }
@@ -146,12 +144,12 @@ extension MACarousalBannerView: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return datasource.count()
+        return viewModel.datasource.count()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let carousalCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarousalViewCell", for: indexPath) as? MACarousalViewCell else { return UICollectionViewCell() }
-        carousalCell.image = datasource.itemAt(indexPath.row)
+        carousalCell.image = viewModel.datasource.itemAt(indexPath.row)
         return carousalCell
     }
     

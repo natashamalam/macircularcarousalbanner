@@ -14,7 +14,7 @@ class MACarousalViewModel {
     private(set) var currentChainNode: MAChainNode<UIImage>?
     
     init(_ images: [UIImage]) {
-        self.allocateDataSource(images)
+        allocateDataSource(images)
         if datasource.count() > 0 {
             currentChainNode = datasource.head
         }
