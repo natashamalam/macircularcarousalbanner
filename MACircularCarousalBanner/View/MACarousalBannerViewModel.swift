@@ -9,15 +9,16 @@ import UIKit
 
 class MACarousalBannerViewModel {
     
-    let datasource: MAChain<UIImage>
     private(set) var currentVisibleIndexpath: IndexPath?
+    
+    private let listViewModel: MACarousalViewModel
     
     init(imageNames: [String]) {
         currentVisibleIndexpath = IndexPath(row: 0, section: 0)
         let images = imageNames.compactMap { imageName in
             UIImage(named: imageName)
         }
-        datasource = MAChain(items: images)
+        self.listViewModel = MACarousalViewModel(images)
     }
     
     func updatedIndexPath(currentRow: Int, currentSection: Int = 0) -> IndexPath? {
@@ -28,8 +29,12 @@ class MACarousalBannerViewModel {
         currentVisibleIndexpath = indexPath
     }
     
-    func item(at index: Int) -> UIImage? {
-        return datasource.itemAt(index)
+    func imageList() -> [UIImage] {
+        return listViewModel.items()
+    }
+    
+    func image(at index: Int) -> UIImage? {
+        return listViewModel.item(at: index)
     }
     
 }

@@ -41,6 +41,14 @@ class MACarousalViewModel {
         return currentChainNode?.item
     }
     
+    func items() -> [UIImage] {
+        return datasource.allItems()
+    }
+    
+    func item(at index: Int) -> UIImage? {
+        return datasource.itemAt(index)
+    }
+    
     private func allocateDataSource(_ images: [UIImage]) {
         var count = 0
         while count < images.count {

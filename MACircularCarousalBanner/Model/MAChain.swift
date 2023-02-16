@@ -135,6 +135,22 @@ class MAChain<Item> {
     func targetIndex(_ index: Int) -> Int {
         return (count() % (index + 1)) - 1
     }
+    
+    func allItems() -> [Item] {
+        var itemList = [Item]()
+        if head == nil {
+            return []
+        }
+        var current = head
+        while current?.next != nil {
+            if let item = current?.item {
+                itemList.append(item)
+            }
+            current = current?.next
+        }
+        return itemList
+    }
+    
     func printForwards() {
         var current = head
         while current?.next != nil {

@@ -12,42 +12,29 @@ protocol MACarousalBannerViewDelegate: AnyObject {
     func moveBackwards()
 }
 
-class MACarousalBannerView: UIView {
+class MACarousalBannerView: UIView, UIScrollViewDelegate {
     
     weak var delegate: MACarousalBannerViewDelegate?
+    
     private let viewModel: MACarousalBannerViewModel
     
-    let wrapperView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    let carousalScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.isPagingEnabled = true
+        return scrollView
     }()
     
-    let imageCollectionView: UICollectionView = {
-        let collectionViewFlowLayout = UICollectionViewFlowLayout()
-        collectionViewFlowLayout.minimumInteritemSpacing = 5.0
-        collectionViewFlowLayout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.isScrollEnabled = true
-        collectionView.isPagingEnabled = true
-        return collectionView
+    let stackContentView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 0
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
 
-    let leftArrowButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "backwards"), for: .normal)
-        return button
-    }()
-    
-    let rightArrowButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "forwards"), for: .normal)
-        return button
-    }()
-    
     // MARK: - Initializers
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -56,83 +43,89 @@ class MACarousalBannerView: UIView {
     init(viewModel: MACarousalBannerViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
-        backgroundColor = .lightText
         translatesAutoresizingMaskIntoConstraints = false
         addSubViews()
         addLayoutConstraints()
-        configureSubviews()
+        carousalScrollView.delegate = self
     }
     
     // MARK: - customizing sub views
+    
+    private func addItemsToStackView() {
+        let images = viewModel.imageList()
+        for image in images {
+            let imageView = getImageView(for: image)
+            stackContentView.addArrangedSubview(imageView)
+        }
+    }
+    
+    func getImageView(for image: UIImage) -> UIImageView {
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        return imageView
+    }
+    
     func addSubViews() {
-        wrapperView.addSubview(leftArrowButton)
-        wrapperView.addSubview(rightArrowButton)
-        wrapperView.addSubview(imageCollectionView)
-        addSubview(wrapperView)
+        addSubview(carousalScrollView)
+        carousalScrollView.addSubview(stackContentView)
+        addItemsToStackView()
     }
     
-    func configureSubviews() {
-        imageCollectionView.delegate = self
-        imageCollectionView.dataSource = self
-        
-        imageCollectionView.register(MACarousalViewCell.self, forCellWithReuseIdentifier: "CarousalViewCell")
-        
-        leftArrowButton.addTarget(self, action: #selector(moveBackwards), for: .touchUpInside)
-        rightArrowButton.addTarget(self, action: #selector(moveForwards), for: .touchUpInside)
-    }
-    
-    func addLayoutConstraints() {
+    private func addLayoutConstraints() {
         let constraints = [
-            wrapperView.topAnchor.constraint(equalTo: self.topAnchor),
-            wrapperView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            wrapperView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            wrapperView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            carousalScrollView.topAnchor.constraint(equalTo: topAnchor),
+            carousalScrollView.leftAnchor.constraint(equalTo: leftAnchor),
+            carousalScrollView.rightAnchor.constraint(equalTo: rightAnchor),
+            carousalScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            leftArrowButton.centerYAnchor.constraint(equalTo: wrapperView.centerYAnchor),
-            leftArrowButton.leftAnchor.constraint(equalTo: wrapperView.leftAnchor),
-            leftArrowButton.heightAnchor.constraint(equalToConstant: 60),
-            leftArrowButton.widthAnchor.constraint(equalTo: leftArrowButton.heightAnchor),
-            
-            rightArrowButton.centerYAnchor.constraint(equalTo: wrapperView.centerYAnchor),
-            rightArrowButton.rightAnchor.constraint(equalTo: wrapperView.rightAnchor),
-            rightArrowButton.heightAnchor.constraint(equalToConstant: 60),
-            rightArrowButton.widthAnchor.constraint(equalTo: rightArrowButton.heightAnchor),
-        
-            imageCollectionView.leftAnchor.constraint(equalTo: leftArrowButton.rightAnchor, constant: 5),
-            imageCollectionView.rightAnchor.constraint(equalTo: rightArrowButton.leftAnchor, constant: -5),
-            imageCollectionView.topAnchor.constraint(equalTo: wrapperView.topAnchor),
-            imageCollectionView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor)
+            stackContentView.topAnchor.constraint(equalTo: carousalScrollView.topAnchor),
+            stackContentView.leftAnchor.constraint(equalTo: carousalScrollView.leftAnchor),
+            stackContentView.rightAnchor.constraint(equalTo: carousalScrollView.rightAnchor),
+            stackContentView.bottomAnchor.constraint(equalTo: carousalScrollView.bottomAnchor)
         ]
-        
         NSLayoutConstraint.activate(constraints)
     }
     
-    @objc func moveForwards() {
-        guard let currentIndex = viewModel.currentVisibleIndexpath?.row else {return}
-        
-        if let nextIndexpath = viewModel.updatedIndexPath(currentRow: currentIndex + 1) {
-            imageCollectionView.scrollToItem(at: nextIndexpath,
-                                             at: .centeredHorizontally,
-                                             animated: true)
-            viewModel.updateCurrentIndexPath(with: nextIndexpath)
-            delegate?.moveBackwards()
-        }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        moveForwards(scrollView)
     }
     
-    @objc func moveBackwards() {
-        guard let currentIndex = viewModel.currentVisibleIndexpath?.row else {return}
-        
-        if let prevIndexpath = viewModel.updatedIndexPath(currentRow: currentIndex - 1) {
-            imageCollectionView.scrollToItem(at: prevIndexpath,
-                                             at: .centeredHorizontally,
-                                             animated: true)
-            viewModel.updateCurrentIndexPath(with: prevIndexpath)
-            delegate?.moveBackwards()
+    func moveForwards(_ scrollView: UIScrollView) {
+        let contentOffsetXPosition = scrollView.contentOffset.x
+        let imageViewFrameWidth = (UIScreen.main.bounds.width * CGFloat(viewModel.imageList().count))
+        if contentOffsetXPosition > imageViewFrameWidth {
+            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
+        print("content Offset \(contentOffsetXPosition)")
+        
+//        guard let currentIndex = viewModel.currentVisibleIndexpath?.row else {return}
+//
+//        if let nextIndexpath = viewModel.updatedIndexPath(currentRow: currentIndex + 1) {
+//            imageScrollView.scrollToItem(at: nextIndexpath,
+//                                             at: .centeredHorizontally,
+//                                             animated: true)
+//            viewModel.updateCurrentIndexPath(with: nextIndexpath)
+//            delegate?.moveBackwards()
+//        }
     }
     
+//    @objc func moveBackwards() {
+//        guard let currentIndex = viewModel.currentVisibleIndexpath?.row else {return}
+//
+//        if let prevIndexpath = viewModel.updatedIndexPath(currentRow: currentIndex - 1) {
+//            imageScrollView.scrollToItem(at: prevIndexpath,
+//                                             at: .centeredHorizontally,
+//                                             animated: true)
+//            viewModel.updateCurrentIndexPath(with: prevIndexpath)
+//            delegate?.moveBackwards()
+//        }
+//    }
+//
 }
-
+/*
 extension MACarousalBannerView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -154,3 +147,4 @@ extension MACarousalBannerView: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
 }
+*/
