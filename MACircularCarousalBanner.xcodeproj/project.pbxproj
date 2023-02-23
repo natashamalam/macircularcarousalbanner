@@ -16,8 +16,19 @@
 		0F32FF89292E2F30000B2E24 /* MACarousalBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F32FF87292E2F30000B2E24 /* MACarousalBannerView.swift */; };
 		0F32FF8A292E2F30000B2E24 /* MACarousalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F32FF88292E2F30000B2E24 /* MACarousalViewCell.swift */; };
 		0F32FF8C292E4144000B2E24 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F32FF8B292E4144000B2E24 /* Constants.swift */; };
+		0F72D4D029A78B9600A50832 /* MACarousalBannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F72D4CF29A78B9600A50832 /* MACarousalBannerViewModelTests.swift */; };
 		0FCAF394299B5B1D007EAA05 /* MACarousalBannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCAF393299B5B1D007EAA05 /* MACarousalBannerViewModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0F72D4C929A78B5F00A50832 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0F32FF5C292E1C16000B2E24 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0F32FF63292E1C16000B2E24;
+			remoteInfo = MACircularCarousalBanner;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0F32FF64292E1C16000B2E24 /* MACircularCarousalBanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MACircularCarousalBanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,11 +42,20 @@
 		0F32FF87292E2F30000B2E24 /* MACarousalBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MACarousalBannerView.swift; sourceTree = "<group>"; };
 		0F32FF88292E2F30000B2E24 /* MACarousalViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MACarousalViewCell.swift; sourceTree = "<group>"; };
 		0F32FF8B292E4144000B2E24 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0F72D4C529A78B5F00A50832 /* MACircularCarousalBannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MACircularCarousalBannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F72D4CF29A78B9600A50832 /* MACarousalBannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MACarousalBannerViewModelTests.swift; sourceTree = "<group>"; };
 		0FCAF393299B5B1D007EAA05 /* MACarousalBannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MACarousalBannerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0F32FF61292E1C16000B2E24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0F72D4C229A78B5F00A50832 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -49,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				0F32FF66292E1C16000B2E24 /* MACircularCarousalBanner */,
+				0F72D4C629A78B5F00A50832 /* MACircularCarousalBannerTests */,
 				0F32FF65292E1C16000B2E24 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				0F32FF64292E1C16000B2E24 /* MACircularCarousalBanner.app */,
+				0F72D4C529A78B5F00A50832 /* MACircularCarousalBannerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,6 +149,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0F72D4C629A78B5F00A50832 /* MACircularCarousalBannerTests */ = {
+			isa = PBXGroup;
+			children = (
+				0F72D4CF29A78B9600A50832 /* MACarousalBannerViewModelTests.swift */,
+			);
+			path = MACircularCarousalBannerTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,6 +177,24 @@
 			productReference = 0F32FF64292E1C16000B2E24 /* MACircularCarousalBanner.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0F72D4C429A78B5F00A50832 /* MACircularCarousalBannerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0F72D4CB29A78B5F00A50832 /* Build configuration list for PBXNativeTarget "MACircularCarousalBannerTests" */;
+			buildPhases = (
+				0F72D4C129A78B5F00A50832 /* Sources */,
+				0F72D4C229A78B5F00A50832 /* Frameworks */,
+				0F72D4C329A78B5F00A50832 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0F72D4CA29A78B5F00A50832 /* PBXTargetDependency */,
+			);
+			name = MACircularCarousalBannerTests;
+			productName = MACircularCarousalBannerTests;
+			productReference = 0F72D4C529A78B5F00A50832 /* MACircularCarousalBannerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -159,6 +207,10 @@
 				TargetAttributes = {
 					0F32FF63292E1C16000B2E24 = {
 						CreatedOnToolsVersion = 14.0.1;
+					};
+					0F72D4C429A78B5F00A50832 = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = 0F32FF63292E1C16000B2E24;
 					};
 				};
 			};
@@ -176,6 +228,7 @@
 			projectRoot = "";
 			targets = (
 				0F32FF63292E1C16000B2E24 /* MACircularCarousalBanner */,
+				0F72D4C429A78B5F00A50832 /* MACircularCarousalBannerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +240,13 @@
 			files = (
 				0F32FF74292E1C17000B2E24 /* LaunchScreen.storyboard in Resources */,
 				0F32FF71292E1C17000B2E24 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0F72D4C329A78B5F00A50832 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +268,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0F72D4C129A78B5F00A50832 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F72D4D029A78B9600A50832 /* MACarousalBannerViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0F72D4CA29A78B5F00A50832 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0F32FF63292E1C16000B2E24 /* MACircularCarousalBanner */;
+			targetProxy = 0F72D4C929A78B5F00A50832 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0F32FF72292E1C17000B2E24 /* LaunchScreen.storyboard */ = {
@@ -390,6 +466,40 @@
 			};
 			name = Release;
 		};
+		0F72D4CC29A78B5F00A50832 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rulewithvirtualization.MACircularCarousalBannerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MACircularCarousalBanner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MACircularCarousalBanner";
+			};
+			name = Debug;
+		};
+		0F72D4CD29A78B5F00A50832 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rulewithvirtualization.MACircularCarousalBannerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MACircularCarousalBanner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MACircularCarousalBanner";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -407,6 +517,15 @@
 			buildConfigurations = (
 				0F32FF79292E1C17000B2E24 /* Debug */,
 				0F32FF7A292E1C17000B2E24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0F72D4CB29A78B5F00A50832 /* Build configuration list for PBXNativeTarget "MACircularCarousalBannerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0F72D4CC29A78B5F00A50832 /* Debug */,
+				0F72D4CD29A78B5F00A50832 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
